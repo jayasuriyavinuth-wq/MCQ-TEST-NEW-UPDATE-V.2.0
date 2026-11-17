@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MCQ Practice</title>
+<style>
+:root{--bg:#f2f5f7;--card:#fff;--ink:#17232d;--mute:#5d6b77;--line:#d3dce3;--acc:#0e6b8a;--accbg:#e1f0f5;--ok:#1b7a4c;--okbg:#e0f3e8;--bad:#b0362b;--badbg:#fbe5e2;--warn:#8a5a00;--warnbg:#fdf1d6;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#11181e;--card:#1a232b;--ink:#e6edf2;--mute:#93a1ad;--line:#2f3c47;--acc:#5bb8d6;--accbg:#18323d;--ok:#52c58a;--okbg:#15301f;--bad:#f0877c;--badbg:#3a1d1a;--warn:#e5b84e;--warnbg:#3a2f12;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#11181e;--card:#1a232b;--ink:#e6edf2;--mute:#93a1ad;--line:#2f3c47;--acc:#5bb8d6;--accbg:#18323d;--ok:#52c58a;--okbg:#15301f;--bad:#f0877c;--badbg:#3a1d1a;--warn:#e5b84e;--warnbg:#3a2f12;color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:740px;margin:0 auto;padding:20px 16px 48px}
+h1{font:600 1.6rem/1.2 Georgia,"Times New Roman",serif;margin:8px 0 6px}
+.sub{color:var(--mute);margin:0 0 16px}
+textarea{width:100%;min-height:260px;padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink);font:14px/1.5 ui-monospace,Menlo,Consolas,monospace;resize:vertical}
+textarea:focus,button:focus-visible,input:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.stat{margin:10px 0 14px;font-size:.95rem;min-height:1.5em}
+.stat .w{color:var(--warn)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin-bottom:16px;display:grid;gap:10px}
+.panel label{display:flex;gap:8px;align-items:center;cursor:pointer}
+.panel input[type=number]{width:80px;padding:4px 8px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);font:inherit}
+button{font:inherit;cursor:pointer}
+.pri,.sec{padding:10px 18px;border-radius:8px;border:1px solid var(--acc);font-weight:600}
+.pri{background:var(--acc);color:#fff}
+:root[data-theme="dark"] .pri{color:#07202a}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .pri{color:#07202a}}
+.sec{background:transparent;color:var(--acc)}
+.pri:disabled{opacity:.45;cursor:not-allowed}
+.link{background:none;border:0;color:var(--acc);text-decoration:underline;padding:4px}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px;color:var(--mute);font-size:.9rem;margin-bottom:8px;flex-wrap:wrap}
+.bar{height:4px;background:var(--line);border-radius:2px;overflow:hidden;margin-bottom:18px}
+.bar i{display:block;height:100%;background:var(--acc)}
+.q{font:1.2rem/1.5 Georgia,"Times New Roman",serif;margin:0 0 6px}
+.hint{color:var(--mute);font-size:.9rem;margin:0 0 14px}
+.opt{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;padding:12px 14px;margin-bottom:8px;border:1.5px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink)}
+.opt b{flex:none;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;font-size:.8rem}
+.opt span{flex:1}
+.opt em{font-style:normal;font-size:.8rem;font-weight:600;white-space:nowrap}
+.opt.on{border-color:var(--acc);background:var(--accbg)}
+.opt.on b{background:var(--acc);border-color:var(--acc);color:#fff}
+.opt:disabled{cursor:default;color:var(--ink)}
+.opt.ok{border-color:var(--ok);background:var(--okbg)}.opt.ok b{background:var(--ok);border-color:var(--ok);color:#fff}.opt.ok em{color:var(--ok)}
+.opt.miss{border:1.5px dashed var(--ok)}.opt.miss em{color:var(--ok)}
+.opt.bad{border-color:var(--bad);background:var(--badbg)}.opt.bad b{background:var(--bad);border-color:var(--bad);color:#fff}.opt.bad em{color:var(--bad)}
+.note{padding:10px 12px;border-radius:8px;margin:4px 0 12px;font-weight:600}
+.note.full{background:var(--okbg);color:var(--ok)}.note.part{background:var(--warnbg);color:var(--warn)}.note.wrong{background:var(--badbg);color:var(--bad)}.note.info{background:var(--warnbg);color:var(--warn)}
+.nav{display:flex;gap:10px;margin-top:14px}.nav .pri{margin-left:auto}
+.big{font:600 3.2rem/1.1 Georgia,serif;margin:4px 0}.big span{font:400 1.1rem system-ui,sans-serif;color:var(--mute)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:16px 0}
+.grid div{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px;text-align:center}
+.grid strong{display:block;font-size:1.5rem}.grid small{color:var(--mute)}
+.grid .g strong{color:var(--ok)}.grid .y strong{color:var(--warn)}.grid .r strong{color:var(--bad)}
+.acts{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}
+.rv{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--line);border-radius:8px;padding:12px 14px;margin-bottom:12px}
+.rv.full{border-left-color:var(--ok)}.rv.part{border-left-color:var(--warn)}.rv.wrong,.rv.skip{border-left-color:var(--bad)}
+.rv header{display:flex;justify-content:space-between;color:var(--mute);font-size:.85rem}
+.rv .q{font-size:1.05rem;margin:4px 0 8px}
+.rv ul{list-style:none;margin:0;padding:0}
+.rv li{padding:4px 8px;border-radius:6px;display:flex;justify-content:space-between;gap:8px;font-size:.95rem}
+.rv li.ok{background:var(--okbg)}.rv li.bad{background:var(--badbg)}
+.rv li em{font-style:normal;font-size:.8rem;font-weight:600;white-space:nowrap}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<script>
+const OPT=/^([+\-\u2013\u2212])\s*(\d{1,2})\s*[.)]\s*(.*)$/;
+const LET='ABCDEFGHIJKL';
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const app=document.getElementById('app');
+let bank=[],skipped=[],cfg={shuffleQ:true,shuffleO:false,mode:'practice',hint:false,n:0};
+let quiz=[],ans=[],lock=[],idx=0,draft='',msg='',lastList=[],onlyMiss=true;
+
+function parse(text){
+  const lines=text.replace(/\r/g,'').replace(/\*\*/g,'').split('\n').map(l=>l.replace(/^[\s\u2022\u00b7\u25cf]+/,'').trim()).filter(Boolean);
+  const out=[],bad=[];let cur=null;
+  const flush=()=>{if(!cur)return;
+    if(cur.opts.length>=2&&cur.opts.some(o=>o.ok))out.push(cur);else bad.push(cur.q.slice(0,70));
+    cur=null};
+  for(const raw of lines){
+    const m=raw.match(OPT);
+    if(m){if(!cur)cur={q:'(no question text)',opts:[]};cur.opts.push({t:m[3],ok:m[1]==='+'});continue}
+    const t=raw.replace(/^[*]\s*/,'').replace(/^-\s+/,'');
+    if(!cur)cur={q:t,opts:[]};
+    else if(!cur.opts.length)cur.q+=' '+t;
+    else if(/^[a-z]/.test(t))cur.opts[cur.opts.length-1].t+=' '+t;
+    else{flush();cur={q:t,opts:[]}}
+  }
+  flush();
+  return{out,bad};
+}
+
+function setup(){
+  app.innerHTML=`<h1>MCQ practice</h1>
+  <p class="sub">Paste any number of questions from your Word file. Options marked <b>+1.</b> are correct, <b>-2.</b> are wrong.</p>
+  <textarea id="src" spellcheck="false" placeholder="Hygiene is a science about:&#10;&#10;-1. practical actions directed on carrying out in life of the hygienic requirements&#10;+2. laws of environment factors’ influence on individual and public health&#10;+3. conditions of maintenance and strengthening of health&#10;-4. actions affecting the body">${esc(draft)}</textarea>
+  <div class="stat" id="stat"></div>
+  <div class="panel">
+    <label>Number of questions <input type="number" id="n" min="1" placeholder="all" value="${cfg.n||''}"></label>
+    <label><input type="checkbox" id="sq" ${cfg.shuffleQ?'checked':''}> Shuffle question order</label>
+    <label><input type="checkbox" id="so" ${cfg.shuffleO?'checked':''}> Shuffle answer order</label>
+    <label><input type="checkbox" id="hn" ${cfg.hint?'checked':''}> Tell me how many answers are correct (easier)</label>
+    <label><input type="radio" name="md" value="practice" ${cfg.mode==='practice'?'checked':''}> Practice: check each answer as I go</label>
+    <label><input type="radio" name="md" value="exam" ${cfg.mode==='exam'?'checked':''}> Exam: see results only at the end</label>
+  </div>
+  <button class="pri" id="go" disabled>Start quiz</button>`;
+  const src=document.getElementById('src'),stat=document.getElementById('stat'),go=document.getElementById('go');
+  const upd=()=>{
+    draft=src.value;const r=parse(draft);bank=r.out;skipped=r.bad;
+    const multi=bank.filter(q=>q.opts.filter(o=>o.ok).length>1).length;
+    let h=bank.length?`Found <b>${bank.length}</b> question${bank.length>1?'s':''} (${multi} with several correct answers).`:(draft.trim()?'No complete questions found yet. Each needs 2+ options and at least one starting with +1., +2. …':'Paste your questions above.');
+    if(skipped.length)h+=` <span class="w">${skipped.length} block${skipped.length>1?'s':''} skipped (missing options or a + answer): “${esc(skipped[0])}”${skipped.length>1?' …':''}</span>`;
+    stat.innerHTML=h;go.disabled=!bank.length;
+  };
+  src.addEventListener('input',upd);upd();
+  go.onclick=()=>{
+    cfg.n=parseInt(document.getElementById('n').value)||0;
+    cfg.shuffleQ=document.getElementById('sq').checked;
+    cfg.shuffleO=document.getElementById('so').checked;
+    cfg.hint=document.getElementById('hn').checked;
+    cfg.mode=document.querySelector('input[name=md]:checked').value;
+    const pool=cfg.shuffleQ?shuffle(bank):bank;
+    start(pool.slice(0,cfg.n>0?Math.min(cfg.n,pool.length):pool.length));
+  };
+}
+
+function start(list){
+  lastList=list;
+  quiz=list.map(q=>{let o=q.opts.map(x=>({...x}));if(cfg.shuffleO)o=shuffle(o);return{q:q.q,opts:o,k:o.filter(x=>x.ok).length}});
+  ans=quiz.map(()=>new Set());lock=quiz.map(()=>false);idx=0;msg='';drawQuiz();
+}
+
+function grade(q,s){
+  if(!s.size)return{s:'skip',p:0};
+  const c=q.opts.filter((o,i)=>o.ok&&s.has(i)).length;
+  const w=[...s].filter(i=>!q.opts[i].ok).length;
+  if(c===q.k&&w===0)return{s:'full',p:1};
+  if(c-w>0)return{s:'part',p:(c-w)/q.k};
+  return{s:'wrong',p:0};
+}
+
+function drawQuiz(){
+  const q=quiz[idx],s=ans[idx],L=lock[idx],ex=cfg.mode==='exam',last=idx===quiz.length-1;
+  const done=ans.filter(a=>a.size).length;
+  const right=quiz.reduce((a,x,i)=>a+(lock[i]&&grade(x,ans[i]).s==='full'?1:0),0);
+  const nLocked=lock.filter(Boolean).length;
+  const hint=cfg.hint?(q.k>1?`Select ${q.k} answers`:'Select one answer'):'Select all that apply';
+  let fb='';
+  if(L){const g=grade(q,s);fb=`<div class="note ${g.s}">${{full:'Correct',part:'Partly correct: some answers were missed or wrong',wrong:'Wrong',skip:'Skipped'}[g.s]}</div>`}
+  else if(msg)fb=`<div class="note info">${msg}</div>`;
+  const opts=q.opts.map((o,i)=>{
+    const on=s.has(i);let c='opt'+(on?' on':''),tag='';
+    if(L){if(o.ok&&on){c+=' ok';tag='✓ Correct'}else if(o.ok){c+=' miss';tag='Correct answer'}else if(on){c+=' bad';tag='✗ Wrong'}}
+    return `<button class="${c}" data-i="${i}" aria-pressed="${on}" ${L?'disabled':''}><b>${LET[i]}</b><span>${esc(o.t)}</span>${tag?`<em>${tag}</em>`:''}</button>`}).join('');
+  const prim=(!ex&&!L)?['check','Check answer']:last?['finish','Finish']:['next','Next'];
+  app.innerHTML=`<div class="top"><span>Question ${idx+1} of ${quiz.length}</span><span>${ex?`Answered ${done}`:`${right} of ${nLocked} correct so far`}</span><button class="link" data-act="finish">Finish now</button></div>
+  <div class="bar"><i style="width:${(idx+1)/quiz.length*100}%"></i></div>
+  <p class="q">${esc(q.q)}</p><p class="hint">${hint}</p>${opts}${fb}
+  <div class="nav">${idx>0?'<button class="sec" data-act="prev">Back</button>':''}<button class="pri" data-act="${prim[0]}">${prim[1]}</button></div>`;
+  msg='';
+}
+
+function results(){
+  const g=quiz.map((q,i)=>grade(q,ans[i])),N=g.length,c={full:0,part:0,wrong:0,skip:0};
+  g.forEach(x=>c[x.s]++);
+  const pct=Math.round(c.full/N*100),pp=Math.round(g.reduce((a,x)=>a+x.p,0)/N*100);
+  const r=pct>=90?['Excellent','Exam-ready on this set.']:pct>=75?['Good','Solid. Go through the misses below.']:pct>=60?['Fair','A pass, but there are gaps to fix.']:['Needs more practice','Review the mistakes below, then retry them.'];
+  const miss=N-c.full;if(!miss)onlyMiss=false;
+  const lab={full:'Correct',part:'Partly correct',wrong:'Wrong',skip:'Skipped'};
+  const rv=quiz.map((q,i)=>{
+    if(onlyMiss&&g[i].s==='full')return'';
+    const li=q.opts.map((o,j)=>{const on=ans[i].has(j);
+      const cl=o.ok?'ok':on?'bad':'';
+      const tag=[o.ok?'✓ Correct answer':'',on?'Your answer':''].filter(Boolean).join(' · ');
+      return `<li class="${cl}"><span>${LET[j]}. ${esc(o.t)}</span><em>${tag}</em></li>`}).join('');
+    return `<article class="rv ${g[i].s}"><header><span>${lab[g[i].s]}</span><span>Question ${i+1}</span></header><p class="q">${esc(q.q)}</p><ul>${li}</ul></article>`}).join('');
+  app.innerHTML=`<h1>${r[0]}</h1><div class="big">${c.full}<span> / ${N} fully correct (${pct}%)</span></div>
+  <p class="sub">${r[1]} With partial credit for multi-answer questions your score is ${pp}%.</p>
+  <div class="grid"><div class="g"><strong>${c.full}</strong><small>Correct</small></div><div class="y"><strong>${c.part}</strong><small>Partly correct</small></div><div class="r"><strong>${c.wrong}</strong><small>Wrong</small></div><div><strong>${c.skip}</strong><small>Skipped</small></div></div>
+  <div class="acts">${miss?'<button class="pri" data-act="retry">Retry my mistakes</button>':''}<button class="sec" data-act="again">Restart these questions</button><button class="sec" data-act="new">Paste new questions</button></div>
+  ${miss?`<label style="display:flex;gap:8px;margin-bottom:12px"><input type="checkbox" id="om" ${onlyMiss?'checked':''}> Show only questions I didn’t fully get right</label>`:''}
+  ${rv}`;
+  window._g=g;
+  const om=document.getElementById('om');if(om)om.onchange=()=>{onlyMiss=om.checked;results()};
+  window.scrollTo(0,0);
+}
+
+app.addEventListener('click',e=>{
+  const o=e.target.closest('.opt');
+  if(o&&!o.disabled){
+    const i=+o.dataset.i,q=quiz[idx],s=ans[idx];
+    if(cfg.hint&&q.k===1){s.clear();s.add(i)}else s.has(i)?s.delete(i):s.add(i);
+    drawQuiz();return;
+  }
+  const a=e.target.closest('[data-act]');if(!a)return;
+  const act=a.dataset.act;
+  if(act==='check'){if(!ans[idx].size){msg='Pick at least one answer first.'}else lock[idx]=true;drawQuiz()}
+  else if(act==='next'){idx++;drawQuiz()}
+  else if(act==='prev'){idx--;drawQuiz()}
+  else if(act==='finish'){onlyMiss=true;results()}
+  else if(act==='retry'){const g=window._g;start(quiz.filter((q,i)=>g[i].s!=='full'))}
+  else if(act==='again')start(lastList);
+  else if(act==='new')setup();
+});
+
+document.addEventListener('keydown',e=>{
+  if(!quiz.length||!document.querySelector('.opt')||e.target.tagName==='INPUT')return;
+  const n=parseInt(e.key);
+  if(n>=1&&n<=quiz[idx].opts.length){const b=document.querySelector(`.opt[data-i="${n-1}"]`);if(b&&!b.disabled)b.click()}
+  else if(e.key==='Enter'){const p=document.querySelector('.nav .pri');if(p)p.click()}
+});
+
+setup();
+</script>
+</body>
+</html>
